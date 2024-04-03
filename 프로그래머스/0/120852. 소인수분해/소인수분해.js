@@ -1,17 +1,13 @@
 function solution(n) {
-    var answer = [];
-    let set = new Set();
-    let div = 2;
+    var set = new Set();
     
-    for(let i = 0; i <= n + 3; i++){
-        if(n % div == 0) {
-            set.add(div);
-            n = n / div;
-        } else if(n % div != 0) {
-            div++;
+    for(let i = 2; i <= n; i++) {
+        
+        while(n % i == 0) {
+            n = n / i;
+            set.add(i);
         }
     }
-    
     
     return [...set];
 }
