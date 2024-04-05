@@ -1,5 +1,6 @@
 function solution(order) {
     var answer = 0;
+
     
     order = order.toString();
     
