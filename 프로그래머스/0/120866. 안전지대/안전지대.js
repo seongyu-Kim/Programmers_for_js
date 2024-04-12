@@ -9,11 +9,9 @@ function solution(board) {
         for(let j = 0; j < arrSize; j++) {
             if(board[i][j] === 1) {
                 bomb.push([i, j]);
-                // boardSize--; 
             }
         }
     }
-    // if(boardSize == 0) return 0;
     
     for(let k = 0; k < 8; k++) {
         bomb.map((x) => {
