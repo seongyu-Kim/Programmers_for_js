@@ -1,28 +1,21 @@
 function solution(priorities, location) {
     var answer = 0;
+    var arr = priorities.map((v, i) => {
+        return {
+            index : i, value : v
+        };
+    });
     
-    while(priorities.length) {
-        let max = Math.max(...priorities);
-        let cur = priorities.shift();
+    var que = [];
+    
+    while(arr.length) {
+        var cur = arr.shift();
+        var hasPri = arr.some((el) => el.value > cur.value);
         
-        if(max === cur) {
-            answer++;
-            
-            if(location === 0) return answer;
-            console.log(answer);
-            
-        } else if(max !== cur) {
-            
-            priorities.push(cur);
-            
-        }
-        
-        if(location === 0) location = priorities.length - 1;
-        else location--;
-        
+        if(hasPri) arr.push(cur);
+        else que.push(cur);
         
     }
     
-    return -1;
-    
+    return que.findIndex(el => el.index === location) + 1;
 }
