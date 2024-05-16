@@ -1,39 +1,34 @@
 function solution(maps) {
-    var answer = 0;
+    var answer = -1;
+    const xGoal = maps.length - 1;
+    const yGoal = maps[0].length - 1;
     
-    //상 하 좌 우
-    //[0, 1], [0, -1], [-1, 0], [1, 0]; 
-    const dirX = [0, 1, 0, -1];
-    const dirY = [1, 0, -1, 0];
+    const dir1 = [1, -1, 0, 0];
+    const dir2 = [0, 0, 1, -1];
     
-    const xLen = maps.length;
-    const yLen = maps[0].length;
+    let queue = [[0, 0, 1]];
     
-    const goalX = xLen - 1;
-    const goalY = yLen - 1;
-    
-    const queue = [];
-    queue.push([0, 0, 1]);
-    
-    
-    while(queue.length) {
-        const [curX, curY, mov] = queue.shift();
+    while (queue.length) {
         
-        if(goalX === curX && goalY === curY) return mov;
+        let [x, y, mov] = queue.shift();
         
+        if(x === xGoal && y === yGoal) return mov;
+    
         for(let i = 0; i < 4; i++) {
             
-            const nextX = curX + dirX[i];
-            const nextY = curY + dirY[i];
+            let nx = x + dir1[i];
+            let ny = y + dir2[i];
             
-            if(nextX >= 0 && nextX < xLen && nextY >= 0 && nextY < yLen && maps[nextX][nextY] === 1) {
-                queue.push([nextX, nextY, mov + 1]);
-                maps[nextX][nextY] = 0;
+            if(nx >= 0 && nx <= xGoal && ny >= 0 && ny <= yGoal && maps[nx][ny] === 1) {
                 
+                queue.push([nx, ny, mov + 1]);
+                maps[nx][ny] = 0;
             }
         }
     }
     
     
-    return -1;
+    
+    
+    return answer;
 }
