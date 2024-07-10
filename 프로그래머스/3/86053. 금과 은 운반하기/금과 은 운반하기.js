@@ -1,34 +1,39 @@
 function solution(a, b, g, s, w, t) {
-  var answer = Infinity;
+  let answer = 10 ** 15;
 
-  const n = g.length;
+  let start = 0;
+  let end = 10 ** 15;
 
-  let left = 1;
-  let right = 10**15;
-
-  while (left < right) {
-    const mid = Math.floor((left + right) / 2);
-
+  while (start <= end) {
+    let mid = Math.floor((start + end) / 2);
     let gold = 0;
     let silver = 0;
     let total = 0;
-    for (let i = 0; i < n; i++) {
-      const canOneWay = mid % (t[i] * 2) >= t[i];
-      let availableWeight = Math.floor(mid / (t[i] * 2)) * w[i];
-      if (canOneWay) availableWeight += w[i];
 
-      gold += availableWeight > g[i] ? g[i] : availableWeight;
-      silver += availableWeight > s[i] ? s[i] : availableWeight;
-      total += availableWeight > s[i] + g[i] ? s[i] + g[i] : availableWeight;
+    for (let i = 0; i < g.length; i++) {
+      let currGold = g[i];
+      let currSilver = s[i];
+      let currWeight = w[i];
+      let currTime = t[i];
+
+      let wayCnt = Math.floor(mid / (currTime * 2));
+      if (mid % (currTime * 2) >= t[i]) wayCnt++;
+
+      gold += currGold < wayCnt * currWeight ? currGold : wayCnt * currWeight;
+      silver +=
+        currSilver < wayCnt * currWeight ? currSilver : wayCnt * currWeight;
+      total +=
+        currGold + currSilver < wayCnt * currWeight
+          ? currGold + currSilver
+          : wayCnt * currWeight;
     }
 
     if (gold >= a && silver >= b && total >= a + b) {
-      right = mid;
-      answer = Math.min(answer, mid);
+      end = mid - 1;
+      answer = Math.min(mid, answer);
     } else {
-      left = mid + 1;
+      start = mid + 1;
     }
   }
-
   return answer;
 }
