@@ -1,8 +1,4 @@
 function solution(a, b, c, d) {
-    // a = 1; 
-    // b = 2; 
-    // c = 2; 
-    // d = 3;
     let arr = [a, b, c, d].sort();
     let set = new Set([a, b, c, d]);
 
@@ -10,10 +6,7 @@ function solution(a, b, c, d) {
     if(set.size === 1) return a * 1111;
     
     //모든 수가 다른 경우
-    if(set.size === 4) {
-        let arr = [...set].sort();
-        return arr[0];
-    }
+    if(set.size === 4) return arr[0];
     
     //세 수가 같고 한 수가 다른 경우
     if(arr[0] !== arr[1] && arr[1] === arr[2] && arr[2] === arr[3]) {
@@ -41,7 +34,5 @@ function solution(a, b, c, d) {
     } else if (c === d && a !== b) {
         return a * b;
     }
-    //1, 11, 16, 24, 36, 39
-    //입력값 〉 1, 2, 2, 3
-    //기댓값 〉 3
+
 }
